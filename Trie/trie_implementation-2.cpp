@@ -55,9 +55,20 @@ int countstartwith(string s, struct trie *root) {
   }
   return traverse->countpref;
 }
+void erase(string s, struct trie *root){
+  int n = s.size();
+  struct trie *traverse = root;
+  for(int i = 0 ; i < n; i++){
+    int ind = s[i] - 'a';
+    traverse->countpref--;
+    traverse = traverse->a[ind];
+  }
+  traverse->countpref--;
+  traverse->count--;
+}
 int main() {
-  int n, m, o;
-  cin >> n >> m >> o;
+  int n, m, o,d;
+  cin >> n >> m >> o >> d;
   struct trie *root = getnode();
   for (int i = 0; i < n; i++) {
     string s;
@@ -73,6 +84,11 @@ int main() {
     string s;
     cin >> s;
     cout << countstartwith(s, root) << endl;
+  }
+  for(int i = 0 ; i < d ; i++){
+    string s;
+    cin >> s;
+    erase(s,root);
   }
   return 0;
 }
